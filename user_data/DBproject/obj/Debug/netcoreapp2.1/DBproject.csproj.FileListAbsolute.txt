@@ -1,0 +1,14 @@
+C:\Users\侯祖光\source\repos\DBproject\DBproject\bin\Debug\netcoreapp2.1\DBproject.deps.json
+C:\Users\侯祖光\source\repos\DBproject\DBproject\bin\Debug\netcoreapp2.1\DBproject.runtimeconfig.json
+C:\Users\侯祖光\source\repos\DBproject\DBproject\bin\Debug\netcoreapp2.1\DBproject.runtimeconfig.dev.json
+C:\Users\侯祖光\source\repos\DBproject\DBproject\bin\Debug\netcoreapp2.1\DBproject.dll
+C:\Users\侯祖光\source\repos\DBproject\DBproject\obj\Debug\netcoreapp2.1\DBproject.csprojAssemblyReference.cache
+C:\Users\侯祖光\source\repos\DBproject\DBproject\obj\Debug\netcoreapp2.1\DBproject.csproj.CoreCompileInputs.cache
+C:\Users\侯祖光\source\repos\DBproject\DBproject\obj\Debug\netcoreapp2.1\DBproject.RazorAssemblyInfo.cache
+C:\Users\侯祖光\source\repos\DBproject\DBproject\obj\Debug\netcoreapp2.1\DBproject.RazorAssemblyInfo.cs
+C:\Users\侯祖光\source\repos\DBproject\DBproject\obj\Debug\netcoreapp2.1\DBproject.AssemblyInfoInputs.cache
+C:\Users\侯祖光\source\repos\DBproject\DBproject\obj\Debug\netcoreapp2.1\DBproject.AssemblyInfo.cs
+C:\Users\侯祖光\source\repos\DBproject\DBproject\obj\Debug\netcoreapp2.1\DBproject.RazorTargetAssemblyInfo.cache
+C:\Users\侯祖光\source\repos\DBproject\DBproject\bin\Debug\netcoreapp2.1\DBproject.pdb
+C:\Users\侯祖光\source\repos\DBproject\DBproject\obj\Debug\netcoreapp2.1\DBproject.dll
+C:\Users\侯祖光\source\repos\DBproject\DBproject\obj\Debug\netcoreapp2.1\DBproject.pdb
