@@ -12718,11 +12718,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\侯祖光\\source\\repos\\DBproject\\DBproject\\DBproject.csproj",
+      "projectUniqueName": "C:\\Users\\侯祖光\\Desktop\\DBvictorty\\user_data\\DBproject\\DBproject.csproj",
       "projectName": "DBproject",
-      "projectPath": "C:\\Users\\侯祖光\\source\\repos\\DBproject\\DBproject\\DBproject.csproj",
+      "projectPath": "C:\\Users\\侯祖光\\Desktop\\DBvictorty\\user_data\\DBproject\\DBproject.csproj",
       "packagesPath": "C:\\Users\\侯祖光\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\侯祖光\\source\\repos\\DBproject\\DBproject\\obj\\",
+      "outputPath": "C:\\Users\\侯祖光\\Desktop\\DBvictorty\\user_data\\DBproject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
