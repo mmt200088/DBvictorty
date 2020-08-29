@@ -32,7 +32,7 @@ namespace WebApplication10.Models
         public float displacement { get; set; }
 
         [Column("condition")]
-        public string condition { get; set; }
+        public string car_condition { get; set; }
 
         [Column("date_produce")]
         public float date_produce { get; set; }

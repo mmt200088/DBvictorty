@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 
 using WebApplication10.Controllers.Utils;
 using WebApplication10.DataAccess.Base;
-using WebApplication10.DataAccess.Implement;
 using WebApplication10.Models;
 
 namespace WebApplication10.Controllers
@@ -41,12 +40,9 @@ namespace WebApplication10.Controllers
     {
         private readonly CoreDbContext _context;
 
-        private readonly NewsClass _myclass;
-
         public newsController(CoreDbContext context)
         {
             _context = context;
-            _myclass = new NewsClass(context);
         }
 
         //输入：json，添加的信息
@@ -81,16 +77,12 @@ namespace WebApplication10.Controllers
                     throw (new Exception("插入到数据库失败"));
                 }
 
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 1;
-                rr.Message = "成功发布新闻";
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(1, "成功发布新闻");
                 return new JsonResult(rr);
             }
             catch(Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }
             
@@ -121,16 +113,12 @@ namespace WebApplication10.Controllers
                     throw (new Exception("数据库删除操作失败"));
                 }
                
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 1;
-                rr.Message = "成功删除新闻";
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(1, "成功删除新闻");
                 return new JsonResult(rr);
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }
         }
@@ -143,13 +131,14 @@ namespace WebApplication10.Controllers
         {
             try
             {
-                var filter = new newsSearchFilter()
-                {
-                    keyword = keyword
-                };
-                if (author_id != "")
-                    filter.authorID = author_id;
-                IEnumerable<news> newsList = _myclass.GetNews(filter);
+                bool isAuthorId = true;
+                if (author_id == "")
+                    isAuthorId = false;
+                var newsList = from news in _context.News
+                               where (news.title.Contains(keyword) || news.content.Contains(keyword))&&
+                               ((!isAuthorId)||news.author_id==author_id)
+                               select news;
+
                 if (newsList.Count() == 0)
                 {
                     throw (new Exception("没有找到满足条件的数据"));
@@ -184,16 +173,14 @@ namespace WebApplication10.Controllers
                 });
 
                 RestfulResult.RestfulArray<NewsForShow> rr = new RestfulResult.RestfulArray<NewsForShow>();
-                rr.Code = 1;
-                rr.Message = "成功查询到结果";
-                rr.Data = showList.ToArray();
+                rr.code = 1;
+                rr.message = "成功查询到结果";
+                rr.data = showList.ToArray();
                 return new JsonResult(rr);
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }
         }
@@ -226,16 +213,14 @@ namespace WebApplication10.Controllers
                     title = news.title
                 };
                 RestfulResult.RestfulData<NewsForShow> rr = new RestfulResult.RestfulData<NewsForShow>();
-                rr.Code = 1;
-                rr.Message = "成功查找新闻";
-                rr.Data = newsshow;
+                rr.code = 1;
+                rr.message = "成功查找新闻";
+                rr.data = newsshow;
                 return new JsonResult(rr);
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }
            

@@ -63,12 +63,17 @@ namespace WebApplication10.Controllers
                 string keyword = _in.keyword;
                 bool isOnlyPost = _in.isOnlyPost;
                 string user_id = _in.user_id;
+                bool isId = true;
+                if (user_id == "" || user_id == null)
+                {
+                    isId = false;
+                }
                 //获得表单数据
                 var postList = from post in _context.Post_data
                                join user in _context.User_data
                                  on post.user_id equals user.user_id
-                               where (post.content.Contains(keyword)) &
-                                     (post.user_id == user_id)
+                               where (post.title.Contains(keyword)||post.content.Contains(keyword)) &&
+                                     ((!isId)||(post.user_id == user_id))
                                orderby post.post_date descending
                                select new { post, user };
 
@@ -76,8 +81,8 @@ namespace WebApplication10.Controllers
                                 join user in _context.User_data
                                   on reply.user_id equals user.user_id
                                 where (!isOnlyPost) &
-                                      (reply.content.Contains(keyword)) &
-                                      (reply.user_id == user_id)
+                                      (reply.content.Contains(keyword)) &&
+                                      ((!isId )|| (reply.user_id == user_id))
                                 orderby reply.reply_date descending
                                 select new { reply, user };
                 //没找到数据的异常
@@ -135,16 +140,14 @@ namespace WebApplication10.Controllers
                 });
                 //返回正确结果
                 RestfulResult.RestfulArray < PostOrReplyForShow > rr= new RestfulResult.RestfulArray<PostOrReplyForShow>();
-                rr.Code = 1;
-                rr.Message = "成功搜索到目标贴";
-                rr.Data = showList.ToArray();
+                rr.code = 1;
+                rr.message = "成功搜索到目标贴";
+                rr.data = showList.ToArray();
                 return new JsonResult(rr);
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }      
         }
@@ -179,21 +182,19 @@ namespace WebApplication10.Controllers
                 };
 
                 RestfulResult.RestfulData<PostForShow> rr = new RestfulResult.RestfulData<PostForShow>();
-                rr.Code = 1;
-                rr.Message = "成功查找新闻";
-                rr.Data = postshow;
+                rr.code = 1;
+                rr.message = "成功查询到结果";
+                rr.data = postshow;
                 return new JsonResult(rr);
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }
         }
 
-        //POST:api/forumSearch/get
+        //POST:api/forumSearch/getReplys
         [HttpPost("getReplys")]
         public IActionResult GetReplys([FromRoute] string post_id)
         {
@@ -224,16 +225,14 @@ namespace WebApplication10.Controllers
                 }
 
                 RestfulResult.RestfulArray < ReplysForShow > rr = new RestfulResult.RestfulArray<ReplysForShow>();
-                rr.Code = 1;
-                rr.Message = "成功查询到结果";
-                rr.Data = showList.ToArray();
+                rr.code = 1;
+                rr.message = "成功查询到结果";
+                rr.data = showList.ToArray();
                 return new JsonResult(rr);
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }
         }

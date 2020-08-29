@@ -49,16 +49,12 @@ namespace WebApplication10.Controllers
                     throw (new Exception("插入到数据库失败"));
                 }
 
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 1;
-                rr.Message = "成功发布回复贴";
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(1, "成功发布回复贴");
                 return new JsonResult(rr);
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }
         }
@@ -86,16 +82,12 @@ namespace WebApplication10.Controllers
                     throw (new Exception("数据库删除操作失败"));
                 }
 
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 1;
-                rr.Message = "成功删除回复贴";
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(1, "成功删除回复贴");
                 return new JsonResult(rr);
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }
         }

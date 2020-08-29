@@ -19,9 +19,6 @@ namespace WebApplication10.Models
         [Column("user_id")]
         public string user_id { get; set; }
 
-        [Required]
-        public virtual user_data user_data { get; set; }
-
         [Column("post_date")]
         public DateTime post_date { get; set; }
 

@@ -20,7 +20,7 @@ namespace WebApplication10.Models
         public string car_vin { get; set; }
 
         [Column("condition")]
-        public string condition { get; set; }
+        public string car_condition { get; set; }
 
         //String?
         [Column("date_buyin")]

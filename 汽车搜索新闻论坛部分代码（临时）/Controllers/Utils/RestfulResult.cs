@@ -13,19 +13,13 @@ namespace WebApplication10.Controllers.Utils
 
             public RestfulData(int v1, string v2)
             {
-                this.Code = v1;
-                this.Message = v2;
+                this.code = v1;
+                this.message = v2;
             }
 
-            /// <summary>
-            /// <![CDATA[错误码]]>
-            /// </summary>
-            public int Code { get; set; }
+            public int code { get; set; }
 
-            /// <summary>
-            ///<![CDATA[消息]]>
-            /// </summary>
-            public string Message { get; set; }
+            public string message { get; set; }
 
         }
 
@@ -38,7 +32,7 @@ namespace WebApplication10.Controllers.Utils
             /// <summary>
             /// <![CDATA[数据]]>
             /// </summary>
-            public virtual T Data { get; set; }
+            public virtual T data { get; set; }
         }
 
         /// <summary>

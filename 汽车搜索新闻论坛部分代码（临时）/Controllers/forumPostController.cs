@@ -49,16 +49,12 @@ namespace WebApplication10.Controllers
                     throw (new Exception("插入到数据库失败"));
                 }
 
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 1;
-                rr.Message = "成功发布主题贴";
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(1, "成功发布主题贴");
                 return new JsonResult(rr);
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }
         }
@@ -89,16 +85,12 @@ namespace WebApplication10.Controllers
                 //还应该删除所有回复贴
                 //数据库级联删除自动完成
 
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 1;
-                rr.Message = "成功删除主题贴";
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(1, "成功删除主题贴");
                 return new JsonResult(rr);
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData();
-                rr.Code = 0;
-                rr.Message = exc.Message;
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
                 return new JsonResult(rr);
             }
         }
