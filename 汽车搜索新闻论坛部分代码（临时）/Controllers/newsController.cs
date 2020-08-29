@@ -33,7 +33,13 @@ namespace WebApplication10.Controllers
 
         public string partition { get; set; }
     }
-
+    //一页新闻
+    public class NewsPage
+    {
+        public int total{ get; set; }
+        public int page_num { get; set; }
+        public NewsForShow[] newsSet { get; set; }
+    }
     [Route("api/[controller]")]
     [ApiController]
     public class newsController : ControllerBase
@@ -137,6 +143,7 @@ namespace WebApplication10.Controllers
                 var newsList = from news in _context.News
                                where (news.title.Contains(keyword) || news.content.Contains(keyword))&&
                                ((!isAuthorId)||news.author_id==author_id)
+                               orderby news.post_date descending
                                select news;
 
                 if (newsList.Count() == 0)
@@ -163,14 +170,6 @@ namespace WebApplication10.Controllers
                     };
                     showList.Add(temp);
                 }
-                //将结果按照时间从近到远排序
-                showList.Sort((x, y) =>
-                {
-                    if (Convert.ToDateTime(x.post_date) > Convert.ToDateTime(y.post_date))
-                        return -1;
-                    else
-                        return 1;
-                });
 
                 RestfulResult.RestfulArray<NewsForShow> rr = new RestfulResult.RestfulArray<NewsForShow>();
                 rr.code = 1;
@@ -226,10 +225,81 @@ namespace WebApplication10.Controllers
            
         }
 
+        // GET: api/news/get_pageNews
+        [HttpGet("get_pageNews")]
+        public IActionResult Get_pageNews(dynamic _in)
+        {
+            try
+            {               
+                List<NewsForShow> showList = NewsSearch(_in.keyword, _in.author_id);              
+                int startIndex = (_in.page_num - 1) * _in.page_size;
+                int endIndex = _in.page_num * _in.page_size;
+                List<NewsForShow> pageList;
+                if (showList.Count() < startIndex - 1)
+                    throw (new Exception("超出范围"));
+                else if (showList.Count() < endIndex)
+                    pageList = showList.GetRange(startIndex, showList.Count() - startIndex);
+                else
+                    pageList = showList.GetRange(startIndex, _in.page_size);
 
+                var resultData = new NewsPage
+                {
+                    page_num = _in.page_num,
+                    total = showList.Count(),
+                    newsSet=pageList.ToArray()
+                };
+                var rr=new RestfulResult.RestfulData<NewsPage>();
+                rr.code = 1;
+                rr.message = "成功获取新闻页";
+                rr.data = resultData;
+                return new JsonResult(rr);
+            }
+            catch (Exception exc)
+            {
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
+                return new JsonResult(rr);
+            }
+        }
         private bool IsNewsExists(string id)
         {
             return _context.News.Any(e => e.news_id == id);
+        }
+        private List<NewsForShow> NewsSearch(string keyword,string author_id)
+        {
+            bool isAuthorId = true;
+            if (author_id == "")
+                isAuthorId = false;
+            var newsList = from news in _context.News
+                           where (news.title.Contains(keyword) || news.content.Contains(keyword)) &&
+                           ((!isAuthorId) || news.author_id == author_id)
+                           orderby news.post_date descending
+                           select news;
+
+            if (newsList.Count() == 0)
+            {
+                throw (new Exception("没有找到满足条件的数据"));
+            }
+            List<NewsForShow> showList = new List<NewsForShow>();
+            string contract_content = new string("");
+            foreach (news nwsrow in newsList)
+            {
+                if (nwsrow.content.Count() > 50)
+                    contract_content = nwsrow.content.Substring(0, 50) + "...";
+                else
+                    contract_content = nwsrow.content;
+                NewsForShow temp = new NewsForShow()
+                {
+                    author = nwsrow.author,
+                    author_id = nwsrow.author_id,
+                    content = contract_content,
+                    news_id = nwsrow.news_id,
+                    partition = nwsrow.partition,
+                    post_date = nwsrow.post_date.ToString(),
+                    title = nwsrow.title
+                };
+                showList.Add(temp);
+            }
+            return showList;
         }
     }
 }
