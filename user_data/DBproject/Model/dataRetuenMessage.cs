@@ -9,6 +9,6 @@ namespace DBproject.Model
     {
         public int code { get; set; }
         public string message { get; set; }
-        public object data { get; set; }
+        public dynamic data { get; set; }
     }
 }

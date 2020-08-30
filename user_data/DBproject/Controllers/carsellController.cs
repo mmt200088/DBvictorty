@@ -61,9 +61,9 @@ namespace DBproject.Controllers
                 date_buyin = _in.date_buyin,
                 accident = _in.accident,
                 price = _in.price,
-                phone = _in.phone
+                phone = _in.phone,
+                user_id = _in.user_id
             };
-            dbContext.car_data.Add(newCarData);
             car_vin_data newCarVinData = new car_vin_data
             {
                 car_vin = _in.car_vin,
@@ -75,7 +75,8 @@ namespace DBproject.Controllers
             };
             dbContext.car_vin_data.Add(newCarVinData);
             dbContext.SaveChanges();
-
+            dbContext.car_data.Add(newCarData);
+            dbContext.SaveChanges();
             result.code = 1;
             result.message = "上架成功";
             return result;
