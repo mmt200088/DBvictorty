@@ -17,5 +17,6 @@ namespace DBproject.Model
         public string accident { get; set; }
         public int price { get; set; }
         public string phone { get; set; }
+        public string user_id { get; set; }
     }
 }
