@@ -21,9 +21,9 @@ namespace DBproject.Controllers
             dbContext = _context;
         }
 
-        // GET users
+        // POST users
         // api/users
-        [HttpGet]
+        [HttpPost]
         public dataRetuenMessage Users(dynamic _in)
         {
             dataRetuenMessage result = new dataRetuenMessage();
