@@ -22,7 +22,6 @@ namespace WebApplication10.Controllers
 
         public string title { get; set; }
 
-        //是否应该改为string？
         public string post_date { get; set; }
 
         public string author_id { get; set; }
