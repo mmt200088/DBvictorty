@@ -16,7 +16,10 @@ namespace DBproject.context
         public virtual DbSet<buying_leads> buying_leads { get; set; }
         public virtual DbSet<vip_data> vip_data { get; set; }
         public virtual DbSet<vip_permission> vip_permission { get; set; }
-
+        public virtual DbSet<news> News { get; set; }
+        public virtual DbSet<post_data> Post_data { get; set; }
+        public virtual DbSet<reply_data> Reply_data { get; set; }
+        public virtual DbSet<encyclopedia> Encyclopedia { get; set; }
         public coreDbContext(DbContextOptions<coreDbContext> options) : base(options) { }
     }
 }

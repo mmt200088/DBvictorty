@@ -26,3 +26,17 @@ C:\Users\侯祖光\Desktop\DBvictorty\user_data\DBproject\obj\Debug\netcoreapp2.
 C:\Users\侯祖光\Desktop\DBvictorty\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.RazorTargetAssemblyInfo.cache
 C:\Users\侯祖光\Desktop\DBvictorty\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.dll
 C:\Users\侯祖光\Desktop\DBvictorty\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.pdb
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.csprojAssemblyReference.cache
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.csproj.CoreCompileInputs.cache
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.RazorAssemblyInfo.cache
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.RazorAssemblyInfo.cs
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.AssemblyInfoInputs.cache
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.AssemblyInfo.cs
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.dll
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.pdb
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\bin\Debug\netcoreapp2.1\DBproject.deps.json
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\bin\Debug\netcoreapp2.1\DBproject.runtimeconfig.json
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\bin\Debug\netcoreapp2.1\DBproject.runtimeconfig.dev.json
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\bin\Debug\netcoreapp2.1\DBproject.dll
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\bin\Debug\netcoreapp2.1\DBproject.pdb
+C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\user_data\DBproject\obj\Debug\netcoreapp2.1\DBproject.RazorTargetAssemblyInfo.cache
