@@ -73,7 +73,7 @@ namespace DBproject.Controllers
                 var postList = from post in _context.Post_data
                                join user in _context.user_data
                                  on post.user_id equals user.user_id
-                               where (post.title.Contains(keyword)||post.content.Contains(keyword)) &&
+                               where (KeywordSearch.ContainsKeywords(post.title + " " + post.content, keyword)) &&
                                      ((!isId)||(post.user_id == user_id))
                                orderby post.post_date descending
                                select new { post, user };
@@ -82,7 +82,7 @@ namespace DBproject.Controllers
                                 join user in _context.user_data
                                   on reply.user_id equals user.user_id
                                 where (!isOnlyPost) &
-                                      (reply.content.Contains(keyword)) &&
+                                      (KeywordSearch.ContainsKeywords(reply.content, keyword)) &&
                                       ((!isId )|| (reply.user_id == user_id))
                                 orderby reply.reply_date descending
                                 select new { reply, user };

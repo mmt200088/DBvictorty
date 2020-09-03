@@ -123,7 +123,7 @@ namespace DBproject.Controllers
             try
             {
                 var pediaList = from pedia in _context.Encyclopedia
-                               where (pedia.title.Contains(keyword) || pedia.content.Contains(keyword))
+                               where KeywordSearch.ContainsKeywords(pedia.title+" "+ pedia.content, keyword)
                                orderby pedia.post_date descending
                                select pedia;
 

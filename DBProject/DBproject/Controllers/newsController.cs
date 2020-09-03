@@ -140,8 +140,8 @@ namespace DBproject.Controllers
                 if (author_id == "")
                     isAuthorId = false;
                 var newsList = from news in _context.News
-                               where (news.title.Contains(keyword) || news.content.Contains(keyword))&&
-                               ((!isAuthorId)||news.author_id==author_id)
+                               where (KeywordSearch.ContainsKeywords(news.title+" "+ news.content, keyword))&&
+                                     ((!isAuthorId)||news.author_id==author_id)
                                orderby news.post_date descending
                                select news;
 
