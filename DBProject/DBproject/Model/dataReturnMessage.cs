@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DBproject.Model
 {
-    public class dataRetuenMessage
+    public class dataReturnMessage
     {
         public int code { get; set; }
         public string message { get; set; }

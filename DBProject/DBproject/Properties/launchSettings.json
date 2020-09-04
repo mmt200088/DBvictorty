@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/carsell",
+      "launchUrl": "api/uid/sx",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -20,7 +20,7 @@
     "DBproject": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "api/carsell",
+      "launchUrl": "api/uid/sx",
       "applicationUrl": "https://localhost:5001;http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

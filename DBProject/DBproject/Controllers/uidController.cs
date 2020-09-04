@@ -24,9 +24,9 @@ namespace DBproject.Controllers
         // GET uid
         // api/uid/123456
         [HttpGet("{uid}")]
-        public dataRetuenMessage Uid(string uid)
+        public dataReturnMessage Uid(string uid)
         {
-            dataRetuenMessage result = new dataRetuenMessage();
+            dataReturnMessage result = new dataReturnMessage();
 
             // 用户id不存在
             var sUid = from m in dbContext.user_data
@@ -92,6 +92,34 @@ namespace DBproject.Controllers
 
             result.code = 1;
             result.message = "修改成功";
+            return result;
+        }
+
+        // DELETE uid
+        // api/uid/123456
+        [HttpDelete("{uid}")]
+        public dataReturnMessage UidDelete(string uid)
+        {
+            dataReturnMessage result = new dataReturnMessage();
+            var sUid = from m in dbContext.user_data
+                       where m.user_id == uid
+                       select m;
+            //用户不存在
+            if(sUid.FirstOrDefault() == null)
+            {
+                result.code = 0;
+                result.message = "用户不存在";
+                result.data = null;
+                return result;
+            }
+
+            var oldData = sUid.First();
+            //删除用户
+            dbContext.user_data.Remove(oldData);
+            dbContext.SaveChanges();
+            result.code = 1;
+            result.message = "删除成功";
+            result.data = null;
             return result;
         }
     }

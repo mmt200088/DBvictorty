@@ -24,9 +24,9 @@ namespace DBproject.Controllers
         // GET vip
         // api/vip/123456
         [HttpGet("{uid}")]
-        public dataRetuenMessage Vip(string uid)
+        public dataReturnMessage Vip(string uid)
         {
-            dataRetuenMessage result = new dataRetuenMessage();
+            dataReturnMessage result = new dataReturnMessage();
 
             // 用户id不存在
             var sUid = from m in dbContext.user_data

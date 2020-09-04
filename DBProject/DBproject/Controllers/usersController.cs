@@ -24,9 +24,9 @@ namespace DBproject.Controllers
         // POST users
         // api/users
         [HttpPost]
-        public dataRetuenMessage Users(dynamic _in)
+        public dataReturnMessage Users(dynamic _in)
         {
-            dataRetuenMessage result = new dataRetuenMessage();
+            dataReturnMessage result = new dataReturnMessage();
 
             var sAll = from m in dbContext.user_data
                        select m;
