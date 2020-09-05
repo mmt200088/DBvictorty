@@ -26,7 +26,7 @@ namespace DBproject.Controllers
 
         public string author_id { get; set; }
 
-        public string author { get; set; }
+        public string author_name { get; set; }
 
         public string content { get; set; }
 
@@ -75,7 +75,7 @@ namespace DBproject.Controllers
 
                 var nws = new news()
                 {
-                    author = _in.author,
+                    author_name = _in.author_name,
                     author_id = _in.author_id,
                     content = _in.content,
                     news_id = _in.news_id,
@@ -172,7 +172,7 @@ namespace DBproject.Controllers
                         contract_content = nwsrow.content;
                     NewsForShow temp = new NewsForShow()
                     {
-                        author = nwsrow.author,
+                        author_name = nwsrow.author_name,
                         author_id = nwsrow.author_id,
                         content = contract_content,
                         news_id = nwsrow.news_id,
@@ -215,7 +215,7 @@ namespace DBproject.Controllers
                 }
                 NewsForShow newsshow = new NewsForShow()
                 {
-                    author = news.author,
+                    author_name = news.author_name,
                     author_id = news.author_id,
                     content = news.content,
                     news_id = news.news_id,
@@ -301,7 +301,7 @@ namespace DBproject.Controllers
                     contract_content = nwsrow.content;
                 NewsForShow temp = new NewsForShow()
                 {
-                    author = nwsrow.author,
+                    author_name = nwsrow.author_name,
                     author_id = nwsrow.author_id,
                     content = contract_content,
                     news_id = nwsrow.news_id,
