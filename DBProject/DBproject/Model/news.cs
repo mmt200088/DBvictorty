@@ -26,7 +26,7 @@ namespace DBproject.Model
         [Column("author_id")]
         public string author_id { get; set; }
 
-        [Column("author")]
+        [Column("author_name")]
         public string author_name { get; set; }
 
         [Column("content")]
