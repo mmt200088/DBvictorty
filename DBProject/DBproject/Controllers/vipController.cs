@@ -23,14 +23,14 @@ namespace DBproject.Controllers
 
         // GET vip
         // api/vip/123456
-        [HttpGet("{uid}")]
-        public dataReturnMessage Vip(string uid)
+        [HttpGet("{vid}")]
+        public dataReturnMessage Vip(string vid)
         {
             dataReturnMessage result = new dataReturnMessage();
 
             // 用户id不存在
             var sUid = from m in dbContext.user_data
-                       where m.user_id == uid
+                       where m.user_id == vid
                        select m;
             if (sUid.FirstOrDefault() == null)
             {
@@ -42,8 +42,8 @@ namespace DBproject.Controllers
 
             // 用户不是vip
             var sVipId = from m in dbContext.vip_data
-                       where m.vip_id == uid
-                       select m;
+                         where m.vip_id == vid
+                         select m;
             if (sVipId.FirstOrDefault() == null)
             {
                 result.code = 0;
@@ -52,6 +52,7 @@ namespace DBproject.Controllers
                 return result;
             }
             vip_data vip = sVipId.First();
+            user_data user = sUid.First();
             // 用户vip过期
             DateTime nowTime = DateTime.Now;
             if(Convert.ToDateTime(vip.end_time) < nowTime)
@@ -62,14 +63,10 @@ namespace DBproject.Controllers
                 dbContext.SaveChanges();
                 return result;
             }
-            var sPer = from m in dbContext.vip_permission
-                       where m.vip_level == vip.vip_level
-                       select m;
-            vip_permission vipPer = sPer.First();
             // 查询成功
             result.code = 1;
             result.message = "查询成功";
-            vipReturnData data = new vipReturnData { vip_id = uid, end_time = vip.end_time, vip_level = vip.vip_level, permission = vipPer.permissions };
+            vipReturnData data = new vipReturnData { vip_id = vid, user_name = user.user_name, start_time = vip.begin_time, end_time = vip.end_time, vip_level = vip.vip_level};
             result.data = data;
             return result;
         }
@@ -99,74 +96,95 @@ namespace DBproject.Controllers
                        where m.vip_id == inUid
                        select m;
 
+            DateTime nowTime = DateTime.Now;
             // 之前不是vip
-            double length = _in.length;
             if (sVip.FirstOrDefault() == null)
             {
-                DateTime nowTime = DateTime.Now;
                 vip_data newVal = new vip_data { vip_id = inUid, vip_level = inLevel };
                 newVal.begin_time = string.Format("{0:yyyy-MM-dd}", nowTime);
-                nowTime = nowTime.AddDays(length);
+                nowTime = nowTime.AddDays(30);
                 newVal.end_time = string.Format("{0:yyyy-MM-dd}", nowTime);
 
                 dbContext.vip_data.Add(newVal);
                 dbContext.SaveChanges();
 
                 result.code = 1;
-                result.message = "充值成功";
+                result.message = "添加成功";
                 return result;
             }
             // 用户已经是vip
-            else
+            var nowUser = sVip.First();
+            nowUser.vip_level = inLevel;
+            nowUser.begin_time = string.Format("{0:yyyy-MM-dd}", nowTime);
+            nowTime = nowTime.AddDays(30);
+            nowUser.end_time = string.Format("{0:yyyy-MM-dd}", nowTime);
+
+            dbContext.vip_data.Update(nowUser);
+            dbContext.SaveChanges();
+
+            result.code = 1;
+            result.message = "添加成功";
+            return result;
+        }
+
+        // DELETE vip
+        // api/vip/123456
+        [HttpDelete("{uid}")]
+        public dataReturnMessage VipDelete(string uid)
+        {
+            dataReturnMessage result = new dataReturnMessage();
+            var sVip = from m in dbContext.vip_data
+                       where m.vip_id == uid
+                       select m;
+            // 用户id不存在
+            if(sVip.FirstOrDefault() == null)
             {
-                vip_data nowUser = sVip.First();
-                // 同等级续时长
-                if (nowUser.vip_level == inLevel) {
-                    DateTime endTime = Convert.ToDateTime(nowUser.end_time);
-                    endTime = endTime.AddDays(length);
-                    nowUser.end_time = string.Format("{0:yyyy-MM-dd}", endTime);
-
-                    dbContext.vip_data.Update(nowUser);
-                    dbContext.SaveChanges();
-
-                    result.code = 1;
-                    result.message = "充值成功";
-                    return result;
-                }
-                // 充值等级比现等级低
-                else if(nowUser.vip_level > inLevel)
-                {
-                    result.code = 0;
-                    result.message = "充值等级过低";
-                    return result;
-                }
-                // vip升级  原时间归零 时间重新算
-                else
-                {
-                    // vip等级不存在
-                    var sLevel = from m in dbContext.vip_permission
-                                 where m.vip_level == inLevel
-                                 select m;
-                    if(sLevel.FirstOrDefault() == null)
-                    {
-                        result.code = 0;
-                        result.message = "vip等级无效";
-                        return result;
-                    }
-                    DateTime nowTime = DateTime.Now;
-                    nowUser.vip_level = inLevel;
-                    nowUser.begin_time = string.Format("{0:yyyy-MM-dd}", nowTime);
-                    nowTime = nowTime.AddDays(length);
-                    nowUser.end_time = string.Format("{0:yyyy-MM-dd}", nowTime);
-
-                    dbContext.vip_data.Update(nowUser);
-                    dbContext.SaveChanges();
-
-                    result.code = 1;
-                    result.message = "充值成功";
-                    return result;
-                }
+                result.code = 0;
+                result.message = "用户id不存在";
+                return result;
             }
+            // 删除成功
+            var oldData = sVip.First();
+            dbContext.vip_data.Remove(oldData);
+            dbContext.SaveChanges();
+            result.code = 1;
+            result.message = "删除成功";
+            result.data = null;
+            return result;
+        }
+
+        // PUT vip
+        // api/vip
+        [HttpPut]
+        public ReturnMessage VipPut(dynamic _in)
+        {
+            ReturnMessage result = new ReturnMessage();
+            string inUid = _in.vip_id;
+            int inLength = _in.surplus;
+            int inLevel = _in.vip_level;
+
+            var sVip = from m in dbContext.vip_data
+                       where m.vip_id == inUid
+                       select m;
+            // 用户不是vip
+            if(sVip.FirstOrDefault() == null)
+            {
+                result.code = 0;
+                result.message = "用户不是vip";
+                return result;
+            }
+
+            // 修改成功
+            var newData = sVip.First();
+            DateTime startTime = Convert.ToDateTime(newData.begin_time);
+            startTime = startTime.AddDays(inLength);
+            newData.end_time = string.Format("{0:yyyy-MM-dd}", startTime);
+            newData.vip_level = inLevel;
+            dbContext.vip_data.Update(newData);
+            dbContext.SaveChanges();
+            result.code = 1;
+            result.message = "修改成功";
+            return result;
         }
     }
 }
