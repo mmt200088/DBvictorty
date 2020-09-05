@@ -26,3 +26,17 @@ C:\Users\侯祖光\Desktop\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp
 C:\Users\侯祖光\Desktop\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.RazorTargetAssemblyInfo.cache
 C:\Users\侯祖光\Desktop\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.dll
 C:\Users\侯祖光\Desktop\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.pdb
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\bin\Release\netcoreapp2.1\DBproject.deps.json
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\bin\Release\netcoreapp2.1\DBproject.runtimeconfig.json
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\bin\Release\netcoreapp2.1\DBproject.runtimeconfig.dev.json
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\bin\Release\netcoreapp2.1\DBproject.dll
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\bin\Release\netcoreapp2.1\DBproject.pdb
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.csprojAssemblyReference.cache
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.csproj.CoreCompileInputs.cache
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.RazorAssemblyInfo.cache
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.RazorAssemblyInfo.cs
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.AssemblyInfoInputs.cache
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.AssemblyInfo.cs
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.RazorTargetAssemblyInfo.cache
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.dll
+D:\Projects\github repo\DBvictorty\DBProject\DBproject\obj\Release\netcoreapp2.1\DBproject.pdb
