@@ -63,6 +63,16 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:"+ModelState.ToString()));
                 }
 
+                string news_id = _in.news_id;
+                var newss = from row in _context.News
+                             where row.news_id == news_id
+                             select row;
+                var news = newss.FirstOrDefault();
+                if (news != null)
+                {
+                    throw (new Exception("该对象ID已存在"));
+                }
+
                 var nws = new news()
                 {
                     author = _in.author,
@@ -72,8 +82,8 @@ namespace DBproject.Controllers
                     partition = _in.partition,
                     post_date = _in.post_date,
                     title = _in.title,
-                    reader_num=0,
-                    craze=0
+                    reader_num = 0,
+                    craze = 0
                 };
 
                 _context.News.Add(nws);
@@ -106,10 +116,13 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:" + ModelState.ToString()));
                 }
 
-                var news = await _context.News.FindAsync(news_id);
+                var newss = from row in _context.News
+                            where row.news_id == news_id
+                            select row;
+                var news = newss.FirstOrDefault();
                 if (news == null)
                 {
-                    throw (new Exception("未找到待删除的对象"));
+                    throw (new Exception("未找到该对象"));
                 }
 
                 _context.News.Remove(news);

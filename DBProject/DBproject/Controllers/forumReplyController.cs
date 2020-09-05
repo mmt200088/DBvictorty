@@ -34,6 +34,16 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:" + ModelState.ToString()));
                 }
 
+                string reply_id = _in.reply_id;
+                var replys = from row in _context.Reply_data
+                             where row.reply_id == reply_id
+                             select row;
+                var reply = replys.FirstOrDefault();
+                if (reply != null)
+                {
+                    throw (new Exception("该对象ID已存在"));
+                }
+
                 var newreply = new reply_data()
                 {
                     content = _in.content,
@@ -70,10 +80,13 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:" + ModelState.ToString()));
                 }
 
-                var reply = await _context.Reply_data.FindAsync(reply_id);
+                var replys = from row in _context.Reply_data
+                            where row.reply_id == reply_id
+                            select row;
+                var reply = replys.FirstOrDefault();
                 if (reply == null)
                 {
-                    throw (new Exception("未找到待删除的对象"));
+                    throw (new Exception("未找到此对象"));
                 }
 
                 _context.Reply_data.Remove(reply);

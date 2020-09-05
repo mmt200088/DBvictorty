@@ -34,6 +34,16 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:" + ModelState.ToString()));
                 }
 
+                string post_id = _in.post_id;
+                var posts = from row in _context.Post_data
+                             where row.post_id == post_id
+                             select row;
+                var post = posts.FirstOrDefault();
+                if (post != null)
+                {
+                    throw (new Exception("该对象ID已存在"));
+                }
+
                 var newpost = new post_data()
                 {
                     content=_in.content,
@@ -70,10 +80,13 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:" + ModelState.ToString()));
                 }
 
-                var post = await _context.Post_data.FindAsync(post_id);
+                var posts = from row in _context.Post_data
+                            where row.post_id == post_id
+                            select row;
+                var post = posts.FirstOrDefault();
                 if (post == null)
                 {
-                    throw (new Exception("未找到待删除的对象"));
+                    throw (new Exception("未找到此对象"));
                 }
 
                 _context.Post_data.Remove(post);

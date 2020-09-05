@@ -50,7 +50,17 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:" + ModelState.ToString()));
                 }
 
-                var pedia = new encyclopedia()
+                string ID = _in.ID;
+                var pedias = from row in _context.Encyclopedia
+                             where row.ID == ID
+                             select row;
+                var pedia = pedias.FirstOrDefault();
+                if (pedia != null)
+                {
+                    throw (new Exception("该对象ID已存在"));
+                }
+
+                var newpedia = new encyclopedia()
                 {
                     author_name = _in.author_name,
                     author_id = _in.author_id,
@@ -62,7 +72,7 @@ namespace DBproject.Controllers
                     reader_num = 0
                 };
 
-                _context.Encyclopedia.Add(pedia);
+                _context.Encyclopedia.Add(newpedia);
                 if (!(await _context.SaveChangesAsync() > 0))
                 {
                     throw (new Exception("插入到数据库失败"));
@@ -92,7 +102,10 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:" + ModelState.ToString()));
                 }
 
-                var pedia = await _context.Encyclopedia.FindAsync(ID);
+                var pedias = from row in _context.Encyclopedia
+                             where row.ID == ID
+                             select row;
+                var pedia = pedias.FirstOrDefault();
                 if (pedia == null)
                 {
                     throw (new Exception("未找到待删除的对象"));
