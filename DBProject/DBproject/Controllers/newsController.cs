@@ -105,9 +105,9 @@ namespace DBproject.Controllers
 
         //输入：json，删除的信息的主码
         //输出：json，展示是否正确删除
-        // DELETE: api/news/delete
+        // POST: api/news/delete
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete([FromRoute]string news_id)
+        public async Task<IActionResult> Delete(string news_id)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace DBproject.Controllers
         //输出：json，展示新闻信息
         // POST: api/news/get
         [HttpPost("get")]
-        public IActionResult Get([FromRoute]string keyword, [FromRoute]string author_id)
+        public IActionResult Get(string keyword, string author_id)
         {
             try
             {
@@ -198,7 +198,7 @@ namespace DBproject.Controllers
 
         // GET: api/news/getNews
         [HttpGet("getNews")]
-        public async Task<IActionResult> Getnews([FromRoute] string news_id)
+        public async Task<IActionResult> Getnews(string news_id)
         {
             try
             {

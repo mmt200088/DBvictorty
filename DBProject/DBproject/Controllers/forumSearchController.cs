@@ -155,7 +155,7 @@ namespace DBproject.Controllers
 
         //POST:api/forumSearch/getPost
         [HttpPost("getPost")]
-        public IActionResult GetPost([FromRoute] string post_id)
+        public IActionResult GetPost( string post_id)
         {
             try
             {
@@ -197,7 +197,7 @@ namespace DBproject.Controllers
 
         //POST:api/forumSearch/getReplys
         [HttpPost("getReplys")]
-        public IActionResult GetReplys([FromRoute] string post_id)
+        public IActionResult GetReplys( string post_id)
         {
             try
             {

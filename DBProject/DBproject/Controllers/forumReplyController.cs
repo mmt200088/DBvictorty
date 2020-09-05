@@ -71,7 +71,7 @@ namespace DBproject.Controllers
 
         //POST:api/forumReply/delete
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete([FromRoute]string reply_id)
+        public async Task<IActionResult> Delete(string reply_id)
         {
             try
             {

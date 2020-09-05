@@ -93,7 +93,7 @@ namespace DBproject.Controllers
         //输出：json，展示是否正确删除
         // DELETE: api/encyclopedia/delete
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete([FromRoute]string ID)
+        public async Task<IActionResult> Delete(string ID)
         {
             try
             {
@@ -131,7 +131,7 @@ namespace DBproject.Controllers
         //输出：json，展示新闻信息
         // POST: api/encyclopedia/get
         [HttpPost("get")]
-        public IActionResult Get([FromRoute]string keyword)
+        public IActionResult Get(string keyword)
         {
             try
             {
@@ -180,7 +180,7 @@ namespace DBproject.Controllers
 
         // GET: api/encyclopedia/getOne
         [HttpGet("getOne")]
-        public async Task<IActionResult> GetOne([FromRoute] string ID)
+        public async Task<IActionResult> GetOne( string ID)
         {
             try
             {
