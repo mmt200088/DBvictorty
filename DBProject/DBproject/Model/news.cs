@@ -26,16 +26,16 @@ namespace DBproject.Model
         [Column("author_id")]
         public string author_id { get; set; }
 
-        [Column("author")]
-        public string author { get; set; }
+        [Column("author_name")]
+        public string author_name { get; set; }
 
         [Column("content")]
         [Required]
         [StringLength(1024)]
         public string content { get; set; }
 
-        [Column("partition")]
-        public string partition { get; set; }
+        [Column("part")]
+        public string part { get; set; }
 
         [Column("craze")]
         public int craze { get; set; }

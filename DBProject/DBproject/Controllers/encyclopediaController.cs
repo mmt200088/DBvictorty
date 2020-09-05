@@ -25,7 +25,7 @@ namespace DBproject.Controllers
         public string author_id { get; set; }
         public string author_name { get; set; }
         public string content { get; set; }
-        public string partition { get; set; }
+        public string part { get; set; }
     }
     [Route("api/[controller]")]
     public class encyclopediaController : Controller
@@ -50,19 +50,29 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:" + ModelState.ToString()));
                 }
 
-                var pedia = new encyclopedia()
+                string ID = _in.ID;
+                var pedias = from row in _context.Encyclopedia
+                             where row.ID == ID
+                             select row;
+                var pedia = pedias.FirstOrDefault();
+                if (pedia != null)
+                {
+                    throw (new Exception("该对象ID已存在"));
+                }
+
+                var newpedia = new encyclopedia()
                 {
                     author_name = _in.author_name,
                     author_id = _in.author_id,
                     content = _in.content,
                     ID = _in.ID,
-                    partition = _in.partition,
+                    part= _in.part,
                     post_date =_in.post_date,
                     title = _in.title,
                     reader_num = 0
                 };
 
-                _context.Encyclopedia.Add(pedia);
+                _context.Encyclopedia.Add(newpedia);
                 if (!(await _context.SaveChangesAsync() > 0))
                 {
                     throw (new Exception("插入到数据库失败"));
@@ -92,7 +102,10 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:" + ModelState.ToString()));
                 }
 
-                var pedia = await _context.Encyclopedia.FindAsync(ID);
+                var pedias = from row in _context.Encyclopedia
+                             where row.ID == ID
+                             select row;
+                var pedia = pedias.FirstOrDefault();
                 if (pedia == null)
                 {
                     throw (new Exception("未找到待删除的对象"));
@@ -145,7 +158,7 @@ namespace DBproject.Controllers
                         author_id = nwsrow.author_id,
                         content = contract_content,
                         ID = nwsrow.ID,
-                        partition = nwsrow.partition,
+                        part = nwsrow.part,
                         post_date = nwsrow.post_date.ToString(),
                         title = nwsrow.title
                     };
@@ -188,7 +201,7 @@ namespace DBproject.Controllers
                     author_id = pedia.author_id,
                     content = pedia.content,
                     ID = pedia.ID,
-                    partition = pedia.partition,
+                    part = pedia.part,
                     post_date = pedia.post_date.ToString(),
                     title = pedia.title
                 };

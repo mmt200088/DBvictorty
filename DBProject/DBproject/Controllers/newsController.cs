@@ -26,11 +26,11 @@ namespace DBproject.Controllers
 
         public string author_id { get; set; }
 
-        public string author { get; set; }
+        public string author_name { get; set; }
 
         public string content { get; set; }
 
-        public string partition { get; set; }
+        public string part { get; set; }
     }
     //一页新闻
     public class NewsPage
@@ -63,17 +63,27 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:"+ModelState.ToString()));
                 }
 
+                string news_id = _in.news_id;
+                var newss = from row in _context.News
+                             where row.news_id == news_id
+                             select row;
+                var news = newss.FirstOrDefault();
+                if (news != null)
+                {
+                    throw (new Exception("该对象ID已存在"));
+                }
+
                 var nws = new news()
                 {
-                    author = _in.author,
+                    author_name = _in.author_name,
                     author_id = _in.author_id,
                     content = _in.content,
                     news_id = _in.news_id,
-                    partition = _in.partition,
+                    part = _in.part,
                     post_date = _in.post_date,
                     title = _in.title,
-                    reader_num=0,
-                    craze=0
+                    reader_num = 0,
+                    craze = 0
                 };
 
                 _context.News.Add(nws);
@@ -106,10 +116,13 @@ namespace DBproject.Controllers
                     throw (new Exception("Bad Request,ModelState:" + ModelState.ToString()));
                 }
 
-                var news = await _context.News.FindAsync(news_id);
+                var newss = from row in _context.News
+                            where row.news_id == news_id
+                            select row;
+                var news = newss.FirstOrDefault();
                 if (news == null)
                 {
-                    throw (new Exception("未找到待删除的对象"));
+                    throw (new Exception("未找到该对象"));
                 }
 
                 _context.News.Remove(news);
@@ -159,11 +172,11 @@ namespace DBproject.Controllers
                         contract_content = nwsrow.content;
                     NewsForShow temp = new NewsForShow()
                     {
-                        author = nwsrow.author,
+                        author_name = nwsrow.author_name,
                         author_id = nwsrow.author_id,
                         content = contract_content,
                         news_id = nwsrow.news_id,
-                        partition = nwsrow.partition,
+                        part = nwsrow.part,
                         post_date = nwsrow.post_date.ToString(),
                         title = nwsrow.title
                     };
@@ -202,11 +215,11 @@ namespace DBproject.Controllers
                 }
                 NewsForShow newsshow = new NewsForShow()
                 {
-                    author = news.author,
+                    author_name = news.author_name,
                     author_id = news.author_id,
                     content = news.content,
                     news_id = news.news_id,
-                    partition = news.partition,
+                    part = news.part,
                     post_date = news.post_date.ToString(),
                     title = news.title
                 };
@@ -288,11 +301,11 @@ namespace DBproject.Controllers
                     contract_content = nwsrow.content;
                 NewsForShow temp = new NewsForShow()
                 {
-                    author = nwsrow.author,
+                    author_name = nwsrow.author_name,
                     author_id = nwsrow.author_id,
                     content = contract_content,
                     news_id = nwsrow.news_id,
-                    partition = nwsrow.partition,
+                    part = nwsrow.part,
                     post_date = nwsrow.post_date.ToString(),
                     title = nwsrow.title
                 };

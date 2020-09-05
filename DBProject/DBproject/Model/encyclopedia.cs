@@ -35,8 +35,8 @@ namespace DBproject.Model
         [StringLength(4096)]
         public string content { get; set; }
 
-        [Column("partition")]
-        public string partition { get; set; }
+        [Column("part")]
+        public string part { get; set; }
 
         [Column("reader_num")]
         public int reader_num { get; set; }
