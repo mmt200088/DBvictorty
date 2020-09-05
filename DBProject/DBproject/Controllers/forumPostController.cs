@@ -38,7 +38,7 @@ namespace DBproject.Controllers
                 {
                     content=_in.content,
                     title=_in.title,
-                    post_date=_in.post_date,
+                    post_date= _in.post_date,
                     post_id=_in.post_id,
                     user_id=_in.user_id
                 };

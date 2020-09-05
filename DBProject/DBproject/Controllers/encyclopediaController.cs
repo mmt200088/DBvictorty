@@ -57,7 +57,7 @@ namespace DBproject.Controllers
                     content = _in.content,
                     ID = _in.ID,
                     partition = _in.partition,
-                    post_date = Convert.ToDateTime(_in.post_data),
+                    post_date =_in.post_date,
                     title = _in.title,
                     reader_num = 0
                 };
