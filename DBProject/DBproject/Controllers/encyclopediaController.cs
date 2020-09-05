@@ -25,7 +25,7 @@ namespace DBproject.Controllers
         public string author_id { get; set; }
         public string author_name { get; set; }
         public string content { get; set; }
-        public string partition { get; set; }
+        public string part { get; set; }
     }
     [Route("api/[controller]")]
     public class encyclopediaController : Controller
@@ -66,7 +66,7 @@ namespace DBproject.Controllers
                     author_id = _in.author_id,
                     content = _in.content,
                     ID = _in.ID,
-                    partition = _in.partition,
+                    part= _in.part,
                     post_date =_in.post_date,
                     title = _in.title,
                     reader_num = 0
@@ -158,7 +158,7 @@ namespace DBproject.Controllers
                         author_id = nwsrow.author_id,
                         content = contract_content,
                         ID = nwsrow.ID,
-                        partition = nwsrow.partition,
+                        part = nwsrow.part,
                         post_date = nwsrow.post_date.ToString(),
                         title = nwsrow.title
                     };
@@ -201,7 +201,7 @@ namespace DBproject.Controllers
                     author_id = pedia.author_id,
                     content = pedia.content,
                     ID = pedia.ID,
-                    partition = pedia.partition,
+                    part = pedia.part,
                     post_date = pedia.post_date.ToString(),
                     title = pedia.title
                 };

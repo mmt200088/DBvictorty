@@ -30,7 +30,7 @@ namespace DBproject.Controllers
 
         public string content { get; set; }
 
-        public string partition { get; set; }
+        public string part { get; set; }
     }
     //一页新闻
     public class NewsPage
@@ -79,7 +79,7 @@ namespace DBproject.Controllers
                     author_id = _in.author_id,
                     content = _in.content,
                     news_id = _in.news_id,
-                    partition = _in.partition,
+                    part = _in.part,
                     post_date = _in.post_date,
                     title = _in.title,
                     reader_num = 0,
@@ -176,7 +176,7 @@ namespace DBproject.Controllers
                         author_id = nwsrow.author_id,
                         content = contract_content,
                         news_id = nwsrow.news_id,
-                        partition = nwsrow.partition,
+                        part = nwsrow.part,
                         post_date = nwsrow.post_date.ToString(),
                         title = nwsrow.title
                     };
@@ -219,7 +219,7 @@ namespace DBproject.Controllers
                     author_id = news.author_id,
                     content = news.content,
                     news_id = news.news_id,
-                    partition = news.partition,
+                    part = news.part,
                     post_date = news.post_date.ToString(),
                     title = news.title
                 };
@@ -305,7 +305,7 @@ namespace DBproject.Controllers
                     author_id = nwsrow.author_id,
                     content = contract_content,
                     news_id = nwsrow.news_id,
-                    partition = nwsrow.partition,
+                    part = nwsrow.part,
                     post_date = nwsrow.post_date.ToString(),
                     title = nwsrow.title
                 };
