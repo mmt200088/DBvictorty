@@ -145,7 +145,7 @@ namespace DBproject.Controllers
         //输出：json，展示新闻信息
         // POST: api/news/get
         [HttpPost("get")]
-        public IActionResult Get([FromRoute]string keyword, [FromRoute]string author_id = "")
+        public IActionResult Get([FromRoute]string keyword, [FromRoute]string author_id)
         {
             try
             {
