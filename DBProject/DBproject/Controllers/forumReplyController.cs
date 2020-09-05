@@ -37,7 +37,7 @@ namespace DBproject.Controllers
                 var newreply = new reply_data()
                 {
                     content = _in.content,
-                    reply_date=_in.reply_date,
+                    reply_date= Convert.ToDateTime(_in.reply_date),
                     reply_id=_in.reply_id,
                     post_id = _in.post_id,
                     user_id = _in.user_id
