@@ -6,6 +6,11 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>C:\Users\hyo619\Desktop\202002暑假小学期\数据库\参考文件\publish</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\侯祖光\Desktop\publish</_PublishTargetUrl>
   </PropertyGroup>
+  <ItemGroup>
+    <DestinationConnectionStrings Include="conn">
+      <Value>server=172.81.212.49%3buid=root%3bpwd=SJKYLYYY10%3bport=3306%3bdatabase=systemdata%3bsslmode=Preferred%3b</Value>
+    </DestinationConnectionStrings>
+  </ItemGroup>
 </Project>
