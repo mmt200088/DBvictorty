@@ -12712,23 +12712,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\侯祖光\\.nuget\\packages\\": {},
+    "C:\\Users\\hyo619\\.nuget\\packages\\": {},
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\侯祖光\\Desktop\\DBvictorty\\DBProject\\DBproject\\DBproject.csproj",
+      "projectUniqueName": "D:\\Projects\\github repo\\DBvictorty\\DBProject\\DBproject\\DBproject.csproj",
       "projectName": "DBproject",
-      "projectPath": "C:\\Users\\侯祖光\\Desktop\\DBvictorty\\DBProject\\DBproject\\DBproject.csproj",
-      "packagesPath": "C:\\Users\\侯祖光\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\侯祖光\\Desktop\\DBvictorty\\DBProject\\DBproject\\obj\\",
+      "projectPath": "D:\\Projects\\github repo\\DBvictorty\\DBProject\\DBproject\\DBproject.csproj",
+      "packagesPath": "C:\\Users\\hyo619\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\github repo\\DBvictorty\\DBProject\\DBproject\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
       ],
       "configFilePaths": [
-        "C:\\Users\\侯祖光\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\hyo619\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
