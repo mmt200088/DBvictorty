@@ -113,18 +113,13 @@ namespace DBproject.Controllers
                 return result;
             }
             // 用户已经是vip
-            var nowUser = sVip.First();
-            nowUser.vip_level = inLevel;
-            nowUser.begin_time = string.Format("{0:yyyy-MM-dd}", nowTime);
-            nowTime = nowTime.AddDays(30);
-            nowUser.end_time = string.Format("{0:yyyy-MM-dd}", nowTime);
+            else
+            {
+                result.code = 0;
+                result.message = "用户已是vip";
+                return result;
 
-            dbContext.vip_data.Update(nowUser);
-            dbContext.SaveChanges();
-
-            result.code = 1;
-            result.message = "添加成功";
-            return result;
+            }
         }
 
         // DELETE vip

@@ -9,6 +9,6 @@ namespace DBproject.Model
     {
         public int total { get; set; }
         public int page_num { get; set; }
-        public object[] vip_data { get; set; }
+        public vipReturnData[] vip_data { get; set; }
     }
 }

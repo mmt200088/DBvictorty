@@ -41,11 +41,17 @@ namespace DBproject.Controllers
             result.data = new totalVip();
             result.data.total = num;
             result.data.page_num = pageNum;
-            result.data.vip_data = new vip_data[pageSize];
+            result.data.vip_data = new vipReturnData[pageSize];
+            vipReturnData vip_data = new vipReturnData();
             int i = 0;
             foreach(var p in sAll)
             {
-                result.data.vip_data[i++] = p;
+                var name = from m in dbContext.user_data
+                           where m.user_id == p.vip_id
+                           select m;
+                var user_name = name.First().user_name;
+                result.data.vip_data[i] = new vipReturnData { user_name = user_name, vip_id = p.vip_id, vip_level = p.vip_level, start_time = p.begin_time, end_time = p.end_time };
+                ++i;
             }
             return result;
         }
