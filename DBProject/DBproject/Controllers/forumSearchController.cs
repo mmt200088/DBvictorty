@@ -56,7 +56,7 @@ namespace DBproject.Controllers
 
         //POST:api/forumSearch/get
         [HttpPost("get")]
-        public IActionResult Get(dynamic _in)
+        public IActionResult Get([FromBody]dynamic _in)
         {
             try
             {

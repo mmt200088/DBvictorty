@@ -25,7 +25,7 @@ namespace DBproject.Controllers
 
         //POST:api/forumReply/add
         [HttpPost("add")]
-        public async Task<IActionResult> Add(dynamic _in)
+        public async Task<IActionResult> Add([FromBody]dynamic _in)
         {
             try
             {

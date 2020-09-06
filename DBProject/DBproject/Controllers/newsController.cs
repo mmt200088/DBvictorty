@@ -54,7 +54,7 @@ namespace DBproject.Controllers
         //输出：json，展示是否正确添加
         // POST: api/news/add
         [HttpPost("add")]
-        public async Task<IActionResult> Add(dynamic _in)
+        public async Task<IActionResult> Add([FromBody]dynamic _in)
         {
             try
             {
@@ -145,7 +145,7 @@ namespace DBproject.Controllers
         //输出：json，展示新闻信息
         // POST: api/news/get
         [HttpPost("get")]
-        public IActionResult Get(dynamic _in)
+        public IActionResult Get([FromBody]dynamic _in)
         {
             try
             {
@@ -209,7 +209,7 @@ namespace DBproject.Controllers
 
         // POST: api/news/get_pageNews
         [HttpPost("get_pageNews")]
-        public IActionResult Get_pageNews(dynamic _in)
+        public IActionResult Get_pageNews([FromBody]dynamic _in)
         {
             try
             {
