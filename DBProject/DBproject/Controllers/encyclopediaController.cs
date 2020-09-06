@@ -41,7 +41,7 @@ namespace DBproject.Controllers
         //输出：json，展示是否正确添加
         // POST: api/encyclopedia/add
         [HttpPost("add")]
-        public async Task<IActionResult> Add(dynamic _in)
+        public async Task<IActionResult> Add([FromBody]dynamic _in)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace DBproject.Controllers
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.ToString());
                 return new JsonResult(rr);
             }
 
