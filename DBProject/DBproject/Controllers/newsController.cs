@@ -212,21 +212,25 @@ namespace DBproject.Controllers
         public IActionResult Get_pageNews(dynamic _in)
         {
             try
-            {               
-                List<NewsForShow> showList = NewsSearch(_in.keyword, _in.author_id);              
-                int startIndex = (_in.page_num - 1) * _in.page_size;
-                int endIndex = _in.page_num * _in.page_size;
+            {
+                string keyword = _in.keyword;
+                string author_id = _in.author_id;
+                int page_num = _in.page_num;
+                int page_size = _in.page_size;
+                List<NewsForShow> showList = NewsSearch(keyword, author_id);              
+                int startIndex = (page_num - 1) * page_size;
+                int endIndex = page_num * page_size;
                 List<NewsForShow> pageList;
                 if (showList.Count() < startIndex - 1)
                     throw (new Exception("超出范围"));
                 else if (showList.Count() < endIndex)
                     pageList = showList.GetRange(startIndex, showList.Count() - startIndex);
                 else
-                    pageList = showList.GetRange(startIndex, _in.page_size);
+                    pageList = showList.GetRange(startIndex, page_size);
 
                 var resultData = new NewsPage
                 {
-                    page_num = _in.page_num,
+                    page_num = page_num,
                     total = showList.Count(),
                     newsSet=pageList.ToArray()
                 };

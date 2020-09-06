@@ -65,7 +65,7 @@ namespace DBproject.Controllers
                     author_name = _in.author_name,
                     author_id = _in.author_id,
                     content = _in.content,
-                    ID = _in.ID,
+                    ID = ID,
                     part= _in.part,
                     post_date =_in.post_date,
                     title = _in.title,
