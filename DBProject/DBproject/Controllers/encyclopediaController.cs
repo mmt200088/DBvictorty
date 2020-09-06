@@ -135,6 +135,10 @@ namespace DBproject.Controllers
         {
             try
             {
+                //如果keyword为空，不做要求
+                if (keyword == null)
+                    keyword = "";
+
                 var pediaList = from pedia in _context.Encyclopedia
                                where KeywordSearch.ContainsKeywords(pedia.title+" "+ pedia.content, keyword)
                                orderby pedia.post_date descending
@@ -178,8 +182,8 @@ namespace DBproject.Controllers
             }
         }
 
-        // GET: api/encyclopedia/getOne
-        [HttpGet("getOne")]
+        // POST: api/encyclopedia/getOne
+        [HttpPost("getOne")]
         public async Task<IActionResult> GetOne( string ID)
         {
             try

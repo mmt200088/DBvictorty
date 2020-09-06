@@ -145,43 +145,13 @@ namespace DBproject.Controllers
         //输出：json，展示新闻信息
         // POST: api/news/get
         [HttpPost("get")]
-        public IActionResult Get(string keyword, string author_id)
+        public IActionResult Get(dynamic _in)
         {
             try
             {
-                bool isAuthorId = true;
-                if (author_id == "")
-                    isAuthorId = false;
-                var newsList = from news in _context.News
-                               where (KeywordSearch.ContainsKeywords(news.title+" "+ news.content, keyword))&&
-                                     ((!isAuthorId)||news.author_id==author_id)
-                               orderby news.post_date descending
-                               select news;
-
-                if (newsList.Count() == 0)
-                {
-                    throw (new Exception("没有找到满足条件的数据"));
-                }
-                List<NewsForShow> showList = new List<NewsForShow>();
-                string contract_content = new string("");
-                foreach (news nwsrow in newsList)
-                {
-                    if (nwsrow.content.Count() > 50)
-                        contract_content = nwsrow.content.Substring(0, 50) + "...";
-                    else
-                        contract_content = nwsrow.content;
-                    NewsForShow temp = new NewsForShow()
-                    {
-                        author_name = nwsrow.author_name,
-                        author_id = nwsrow.author_id,
-                        content = contract_content,
-                        news_id = nwsrow.news_id,
-                        part = nwsrow.part,
-                        post_date = nwsrow.post_date.ToString(),
-                        title = nwsrow.title
-                    };
-                    showList.Add(temp);
-                }
+                string keyword = _in.keyword;
+                string author_id = _in.author_id;
+                var showList = NewsSearch(keyword, author_id);
 
                 RestfulResult.RestfulArray<NewsForShow> rr = new RestfulResult.RestfulArray<NewsForShow>();
                 rr.code = 1;
@@ -196,8 +166,8 @@ namespace DBproject.Controllers
             }
         }
 
-        // GET: api/news/getNews
-        [HttpGet("getNews")]
+        // POST: api/news/getNews
+        [HttpPost("getNews")]
         public async Task<IActionResult> Getnews(string news_id)
         {
             try
@@ -237,8 +207,8 @@ namespace DBproject.Controllers
            
         }
 
-        // GET: api/news/get_pageNews
-        [HttpGet("get_pageNews")]
+        // POST: api/news/get_pageNews
+        [HttpPost("get_pageNews")]
         public IActionResult Get_pageNews(dynamic _in)
         {
             try
@@ -278,12 +248,16 @@ namespace DBproject.Controllers
         }
         private List<NewsForShow> NewsSearch(string keyword,string author_id)
         {
+            //如果keyword为空，不做要求
+            if (keyword == null)
+                keyword = "";
+            //如果authorid为空，则不做要求
             bool isAuthorId = true;
-            if (author_id == "")
+            if (author_id == string.Empty|| author_id == null)
                 isAuthorId = false;
             var newsList = from news in _context.News
-                           where (news.title.Contains(keyword) || news.content.Contains(keyword)) &&
-                           ((!isAuthorId) || news.author_id == author_id)
+                           where (KeywordSearch.ContainsKeywords(news.title + " " + news.content, keyword))
+                           &&((!isAuthorId) || (news.author_id == author_id))
                            orderby news.post_date descending
                            select news;
 
