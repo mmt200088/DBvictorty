@@ -30,9 +30,19 @@ namespace DBproject.Controllers
 
             int pageNum = _in.page_num;
             int pageSize = _in.page_size;
+            string str = _in.query;
 
             var sAll = from m in dbContext.vip_data
-                       select m;
+                       join n in dbContext.user_data on m.vip_id equals n.user_id
+                       where n.user_name.Contains(str)
+                       select new
+                       {
+                           vip_id = m.vip_id,
+                           user_name = n.user_name,
+                           vip_level = m.vip_level,
+                           begin_time = m.begin_time,
+                           end_time = m.end_time
+                       };
             int num = sAll.Count();
 
             sAll = sAll.Skip((pageNum - 1) * pageSize).Take(pageSize);
@@ -46,11 +56,7 @@ namespace DBproject.Controllers
             int i = 0;
             foreach(var p in sAll)
             {
-                var name = from m in dbContext.user_data
-                           where m.user_id == p.vip_id
-                           select m;
-                var user_name = name.First().user_name;
-                result.data.vip_data[i] = new vipReturnData { user_name = user_name, vip_id = p.vip_id, vip_level = p.vip_level, start_time = p.begin_time, end_time = p.end_time };
+                result.data.vip_data[i] = new vipReturnData { user_name = p.user_name, vip_id = p.vip_id, vip_level = p.vip_level, start_time = p.begin_time, end_time = p.end_time };
                 ++i;
             }
             return result;

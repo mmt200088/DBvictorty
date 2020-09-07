@@ -28,11 +28,14 @@ namespace DBproject.Controllers
         {
             dataReturnMessage result = new dataReturnMessage();
 
-            var sAll = from m in dbContext.user_data
-                       select m;
-            int num = sAll.Count();
             int pageNum = _in.page_num;
             int pageSize = _in.page_size;
+            string str = _in.query;
+
+            var sAll = from m in dbContext.user_data
+                       where m.user_name.Contains(str)
+                       select m;
+            int num = sAll.Count();
 
             sAll = sAll.Skip((pageNum - 1) * pageSize).Take(pageSize);
             result.code = 1;
