@@ -25,7 +25,7 @@ namespace DBproject.Controllers
 
         //POST:api/forumPost/add
         [HttpPost("add")]
-        public async Task<IActionResult> Add(dynamic _in)
+        public async Task<IActionResult> Add([FromBody]dynamic _in)
         {
             try
             {
@@ -71,7 +71,7 @@ namespace DBproject.Controllers
 
         //POST:api/forumPost/delete
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete([FromRoute]string post_id)
+        public async Task<IActionResult> Delete(string post_id)
         {
             try
             {

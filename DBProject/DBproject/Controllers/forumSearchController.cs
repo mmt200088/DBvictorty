@@ -56,7 +56,7 @@ namespace DBproject.Controllers
 
         //POST:api/forumSearch/get
         [HttpPost("get")]
-        public IActionResult Get(dynamic _in)
+        public IActionResult Get([FromBody]dynamic _in)
         {
             try
             {
@@ -64,6 +64,10 @@ namespace DBproject.Controllers
                 string keyword = _in.keyword;
                 bool isOnlyPost = _in.isOnlyPost;
                 string user_id = _in.user_id;
+                //如果keyword为空，不做要求
+                if (keyword == null)
+                    keyword = "";
+                //如果userid为空，不做要求
                 bool isId = true;
                 if (user_id == "" || user_id == null)
                 {
@@ -155,7 +159,7 @@ namespace DBproject.Controllers
 
         //POST:api/forumSearch/getPost
         [HttpPost("getPost")]
-        public IActionResult GetPost([FromRoute] string post_id)
+        public IActionResult GetPost(string post_id)
         {
             try
             {
@@ -197,7 +201,7 @@ namespace DBproject.Controllers
 
         //POST:api/forumSearch/getReplys
         [HttpPost("getReplys")]
-        public IActionResult GetReplys([FromRoute] string post_id)
+        public IActionResult GetReplys(string post_id)
         {
             try
             {

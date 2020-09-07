@@ -41,7 +41,7 @@ namespace DBproject.Controllers
         //输出：json，展示是否正确添加
         // POST: api/encyclopedia/add
         [HttpPost("add")]
-        public async Task<IActionResult> Add(dynamic _in)
+        public async Task<IActionResult> Add([FromBody]dynamic _in)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace DBproject.Controllers
                     author_name = _in.author_name,
                     author_id = _in.author_id,
                     content = _in.content,
-                    ID = _in.ID,
+                    ID = ID,
                     part= _in.part,
                     post_date =_in.post_date,
                     title = _in.title,
@@ -83,7 +83,7 @@ namespace DBproject.Controllers
             }
             catch (Exception exc)
             {
-                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.Message);
+                RestfulResult.RestfulData rr = new RestfulResult.RestfulData(0, exc.ToString());
                 return new JsonResult(rr);
             }
 
@@ -93,7 +93,7 @@ namespace DBproject.Controllers
         //输出：json，展示是否正确删除
         // DELETE: api/encyclopedia/delete
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete([FromRoute]string ID)
+        public async Task<IActionResult> Delete(string ID)
         {
             try
             {
@@ -131,10 +131,14 @@ namespace DBproject.Controllers
         //输出：json，展示新闻信息
         // POST: api/encyclopedia/get
         [HttpPost("get")]
-        public IActionResult Get([FromRoute]string keyword)
+        public IActionResult Get(string keyword)
         {
             try
             {
+                //如果keyword为空，不做要求
+                if (keyword == null)
+                    keyword = "";
+
                 var pediaList = from pedia in _context.Encyclopedia
                                where KeywordSearch.ContainsKeywords(pedia.title+" "+ pedia.content, keyword)
                                orderby pedia.post_date descending
@@ -178,9 +182,9 @@ namespace DBproject.Controllers
             }
         }
 
-        // GET: api/encyclopedia/getOne
-        [HttpGet("getOne")]
-        public async Task<IActionResult> GetOne([FromRoute] string ID)
+        // POST: api/encyclopedia/getOne
+        [HttpPost("getOne")]
+        public async Task<IActionResult> GetOne( string ID)
         {
             try
             {

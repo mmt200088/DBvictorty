@@ -54,7 +54,7 @@ namespace DBproject.Controllers
         //输出：json，展示是否正确添加
         // POST: api/news/add
         [HttpPost("add")]
-        public async Task<IActionResult> Add(dynamic _in)
+        public async Task<IActionResult> Add([FromBody]dynamic _in)
         {
             try
             {
@@ -105,9 +105,9 @@ namespace DBproject.Controllers
 
         //输入：json，删除的信息的主码
         //输出：json，展示是否正确删除
-        // DELETE: api/news/delete
+        // POST: api/news/delete
         [HttpPost("delete")]
-        public async Task<IActionResult> Delete([FromRoute]string news_id)
+        public async Task<IActionResult> Delete(string news_id)
         {
             try
             {
@@ -145,43 +145,13 @@ namespace DBproject.Controllers
         //输出：json，展示新闻信息
         // POST: api/news/get
         [HttpPost("get")]
-        public IActionResult Get([FromRoute]string keyword, [FromRoute]string author_id = "")
+        public IActionResult Get([FromBody]dynamic _in)
         {
             try
             {
-                bool isAuthorId = true;
-                if (author_id == "")
-                    isAuthorId = false;
-                var newsList = from news in _context.News
-                               where (KeywordSearch.ContainsKeywords(news.title+" "+ news.content, keyword))&&
-                                     ((!isAuthorId)||news.author_id==author_id)
-                               orderby news.post_date descending
-                               select news;
-
-                if (newsList.Count() == 0)
-                {
-                    throw (new Exception("没有找到满足条件的数据"));
-                }
-                List<NewsForShow> showList = new List<NewsForShow>();
-                string contract_content = new string("");
-                foreach (news nwsrow in newsList)
-                {
-                    if (nwsrow.content.Count() > 50)
-                        contract_content = nwsrow.content.Substring(0, 50) + "...";
-                    else
-                        contract_content = nwsrow.content;
-                    NewsForShow temp = new NewsForShow()
-                    {
-                        author_name = nwsrow.author_name,
-                        author_id = nwsrow.author_id,
-                        content = contract_content,
-                        news_id = nwsrow.news_id,
-                        part = nwsrow.part,
-                        post_date = nwsrow.post_date.ToString(),
-                        title = nwsrow.title
-                    };
-                    showList.Add(temp);
-                }
+                string keyword = _in.keyword;
+                string author_id = _in.author_id;
+                var showList = NewsSearch(keyword, author_id);
 
                 RestfulResult.RestfulArray<NewsForShow> rr = new RestfulResult.RestfulArray<NewsForShow>();
                 rr.code = 1;
@@ -196,9 +166,9 @@ namespace DBproject.Controllers
             }
         }
 
-        // GET: api/news/getNews
-        [HttpGet("getNews")]
-        public async Task<IActionResult> Getnews([FromRoute] string news_id)
+        // POST: api/news/getNews
+        [HttpPost("getNews")]
+        public async Task<IActionResult> Getnews(string news_id)
         {
             try
             {
@@ -237,26 +207,30 @@ namespace DBproject.Controllers
            
         }
 
-        // GET: api/news/get_pageNews
-        [HttpGet("get_pageNews")]
-        public IActionResult Get_pageNews(dynamic _in)
+        // POST: api/news/get_pageNews
+        [HttpPost("get_pageNews")]
+        public IActionResult Get_pageNews([FromBody]dynamic _in)
         {
             try
-            {               
-                List<NewsForShow> showList = NewsSearch(_in.keyword, _in.author_id);              
-                int startIndex = (_in.page_num - 1) * _in.page_size;
-                int endIndex = _in.page_num * _in.page_size;
+            {
+                string keyword = _in.keyword;
+                string author_id = _in.author_id;
+                int page_num = _in.page_num;
+                int page_size = _in.page_size;
+                List<NewsForShow> showList = NewsSearch(keyword, author_id);              
+                int startIndex = (page_num - 1) * page_size;
+                int endIndex = page_num * page_size;
                 List<NewsForShow> pageList;
                 if (showList.Count() < startIndex - 1)
                     throw (new Exception("超出范围"));
                 else if (showList.Count() < endIndex)
                     pageList = showList.GetRange(startIndex, showList.Count() - startIndex);
                 else
-                    pageList = showList.GetRange(startIndex, _in.page_size);
+                    pageList = showList.GetRange(startIndex, page_size);
 
                 var resultData = new NewsPage
                 {
-                    page_num = _in.page_num,
+                    page_num = page_num,
                     total = showList.Count(),
                     newsSet=pageList.ToArray()
                 };
@@ -278,12 +252,16 @@ namespace DBproject.Controllers
         }
         private List<NewsForShow> NewsSearch(string keyword,string author_id)
         {
+            //如果keyword为空，不做要求
+            if (keyword == null)
+                keyword = "";
+            //如果authorid为空，则不做要求
             bool isAuthorId = true;
-            if (author_id == "")
+            if (author_id == string.Empty|| author_id == null)
                 isAuthorId = false;
             var newsList = from news in _context.News
-                           where (news.title.Contains(keyword) || news.content.Contains(keyword)) &&
-                           ((!isAuthorId) || news.author_id == author_id)
+                           where (KeywordSearch.ContainsKeywords(news.title + " " + news.content, keyword))
+                           &&((!isAuthorId) || (news.author_id == author_id))
                            orderby news.post_date descending
                            select news;
 

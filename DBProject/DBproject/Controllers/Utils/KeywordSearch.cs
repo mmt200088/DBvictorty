@@ -9,6 +9,8 @@ namespace DBproject.Controllers.Utils
     {
         static public bool ContainsKeywords(string content,string keywords)
         {
+            if (keywords == string.Empty)
+                return true;
             //搜索字符串keywords按空格分为多个关键词
             var kws = keywords.Split(" ");
             foreach(var kw in kws)
