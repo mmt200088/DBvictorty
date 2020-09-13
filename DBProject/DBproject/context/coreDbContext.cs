@@ -12,7 +12,7 @@ namespace DBproject.context
     {
         public virtual DbSet<user_data> user_data { get; set; }
         public virtual DbSet<car_data> car_data { get; set; }
-        public virtual DbSet<car_vin_data> car_vin_data { get; set; }
+        public virtual DbSet<car_vin_data> car_vin_data { get; set; }   //wwww
         public virtual DbSet<buying_leads> buying_leads { get; set; }
         public virtual DbSet<vip_data> vip_data { get; set; }
         public virtual DbSet<vip_permission> vip_permission { get; set; }
